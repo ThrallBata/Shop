@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="col-lg-8 mx-auto p-3 py-md-5">
+  <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+    <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+      <span class="fs-4">Good weather</span>
+    </a>
+  </header>
+
+  <main>
+    <h1>Погода: {{locate}} —> {{weather.temperature.temp}}°C</h1>
+       <div class="mb-5">
+        <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.locate }}
+            <p>Введите город</p>
+        <button type="Submit" class="btn btn-primary btn-lg px-4">Узнать погоду</button>
+        </form>
+    <span class="fs-4">{{ error }}</span>
+
+       </div>
+    {% if error == '' %}
+    <div class="row g-5">
+      <div class="col-md-6">
+        <h2>Погода</h2>
+         <p>{{weather.status}}</p>
+         <span class="fs-4">{{ error }}</span>
+      </div>
+
+      <div class="col-md-6">
+        <h2>Ветер</h2>
+        <p>{{weather.wind.speed}} м/с</p>
+        <span class="fs-4">{{ error }}</span>
+      </div>
+
+      <div class="col-md-6">
+        <h2>Влажность</h2>
+        <p>{{weather.humidity}}%</p>
+        <span class="fs-4">{{ error }}</span>
+      </div>
+        {%endif%}
+    </div>
+  </main>
+  <footer class="pt-5 my-5 text-muted border-top">
+    Данные берутся с сервиса OpenWeatherMap.
+  </footer>
+</div>
+{% endblock %}
