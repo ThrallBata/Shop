@@ -11,11 +11,11 @@ menu = [{'title': "О сайте", 'url_name': 'about'},
 
 
 def index(request):
-    posts = Product.objects.all()
+    products = Product.objects.all()
     cats = Category.objects.all()
 
     context = {
-        'posts': posts,
+        'products': products,
         'cats': cats,
         'menu': menu,
         'title': 'Главная страница',
@@ -45,7 +45,7 @@ def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
 
-def show_post(request, prod_id):
+def show_product(request, prod_id):
     return HttpResponse(f"Отображение статьи с id = {prod_id}")
 
 
@@ -57,7 +57,7 @@ def show_category(request, cat_id):
         raise Http404()
 
     context = {
-        'posts': products,
+        'products': products,
         'cats': cats,
         'menu': menu,
         'title': 'Отображение по рубрикам',
