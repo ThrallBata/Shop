@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .models import *
 
@@ -12,11 +12,9 @@ menu = [{'title': "О сайте", 'url_name': 'about'},
 
 def index(request):
     products = Product.objects.all()
-    cats = Category.objects.all()
 
     context = {
         'products': products,
-        'cats': cats,
         'menu': menu,
         'title': 'Главная страница',
         'cat_selected': 0,
@@ -45,23 +43,30 @@ def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
 
-def show_product(request, prod_id):
-    return HttpResponse(f"Отображение статьи с id = {prod_id}")
+def show_product(request, product_slug):
+    product = get_object_or_404(Product, slug=product_slug)
+
+    context = {
+        'product': product,
+        'menu': menu,
+        'title': product.specification,
+        'cat_selected': product.category_id,
+    }
+
+    return render(request, 'shop/product.html', context=context)
 
 
-def show_category(request, cat_id):
-    products = Product.objects.filter(cat_id=cat_id)
-    cats = Category.objects.all()
+def show_category(request, category_id):
+    products = Product.objects.filter(category_id=category_id)
 
     if len(products) == 0:
         raise Http404()
 
     context = {
         'products': products,
-        'cats': cats,
         'menu': menu,
         'title': 'Отображение по рубрикам',
-        'cat_selected': cat_id,
+        'cat_selected': category_id,
     }
 
     return render(request, 'shop/index.html', context=context)
