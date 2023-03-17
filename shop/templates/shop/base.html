@@ -1,4 +1,5 @@
 {% load static %}
+{% load women_tags %}
 <!doctype html>
 <html>
 <head>
@@ -33,27 +34,22 @@
 <!-- Sidebar слева -->
 	<td valign="top" class="left-chapters">
 	<ul id="leftchapters">
+		<h3>FakeDNS</h3>
 {% if cat_selected == 0 %}
 		<li class="selected">Все категории</li>
 {% else %}
 		<li><a href="{% url 'home' %}">Все категории</a></li>
 {% endif %}
 
-{% for c in cats %}
-	{% if c.pk == cat_selected %}
-		<li class="selected">{{c.name}}</li>
-	{% else %}
-		<li><a href="{{ c.get_absolute_url }}">{{c.name}}</a></li>
-	{% endif %}
-{% endfor %}
+{% show_categories cat_selected=cat_selected %}
 
 	</ul>
 </td>
 <!-- Конец Sidebar'а -->
 <td valign="top" class="content">
-	<!-- Хлебные крошки
+	<!-- Хлебные крошки -->
 	{% block breadcrumbs %}
-	{% endblock %}-->
+	{% endblock %}
 
 <!-- Блок контента -->
 {% block content %}

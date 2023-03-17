@@ -10,7 +10,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('category', kwargs={'cat_id': self.pk})
+        return reverse('category', kwargs={'category_id': self.pk})
 
 
 class Product(models.Model):
@@ -21,6 +21,7 @@ class Product(models.Model):
     specification = models.CharField(max_length=2000)
     warranty = models.CharField(max_length=15, verbose_name="Гарантия")
     category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True)
+    spec_gadget = models.ForeignKey('Spec_gadget', on_delete=models.PROTECT, null=True)
 
     def __str__(self):
         return self.name
@@ -50,3 +51,15 @@ class Order(models.Model):
     time = models.DateField()
     total_price = models.IntegerField()
     client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='Машина')
+
+
+class Spec_gadget(models.Model):
+    code_product = models.CharField(max_length=50)
+    cpu = models.CharField(max_length=50, verbose_name='Процессор')
+    frequency = models.FloatField()
+    memory = models.IntegerField()
+    size = models.CharField(max_length=50)
+    warranty = models.CharField(max_length=15, verbose_name="Гарантия")
+
+    def __str__(self):
+        return self.code_product

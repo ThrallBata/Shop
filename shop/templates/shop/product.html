@@ -2,11 +2,11 @@
 
 {% block content %}
 <h1>{{product.name}}</h1>
-<h3>{{product.price}} р</h3>
 
 {% if product.photo %}
 <p><img class="img-article-left" src="{{product.photo.url}}"></p>
 {% endif %}
-
-{{product.specification|linebreaks}}
+<h3>Цена: {{product.price}} р</h3>
+<h3>Описание:</h3>{{product.specification|linebreaks}}
+<h3>Гарантия: {{product.warranty}}</h3>
 {% endblock %}

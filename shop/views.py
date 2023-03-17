@@ -24,7 +24,7 @@ def index(request):
 
 
 def about(request):
-    return render(request, 'women/about.html', {'menu': menu, 'title': 'О сайте'})
+    return render(request, 'shop/about.html', {'menu': menu, 'title': 'О сайте'})
 
 
 def addpage(request):
@@ -49,7 +49,7 @@ def show_product(request, product_slug):
     context = {
         'product': product,
         'menu': menu,
-        'title': product.specification,
+        'title': product.name,
         'cat_selected': product.category_id,
     }
 
