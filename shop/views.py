@@ -1,5 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, get_object_or_404
+from .forms import SearchForm
+from haystack.query import SearchQuerySet
 
 from .models import *
 
@@ -27,8 +29,21 @@ def about(request):
     return render(request, 'shop/about.html', {'menu': menu, 'title': 'О сайте'})
 
 
-def addpage(request):
-    return HttpResponse("Добавление статьи")
+def post_search(request):
+    form = SearchForm()
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            cd = form.cleaned_data
+            results = SearchQuerySet().models(Product).filter(content=cd['query']).load_all()
+            # count total results
+            total_results = results.count()
+    return render(request,
+                  'shop/search.html',
+                  {'form': form,
+                   'cd': cd,
+                   'results': results,
+                   'total_results': total_results})
 
 
 def contact(request):
