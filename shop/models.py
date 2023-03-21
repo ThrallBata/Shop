@@ -17,7 +17,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255, verbose_name='Товар')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
     photo = models.ImageField(upload_to="photo/%Y/%m/%d/")
-    price = models.IntegerField()
+    price = models.DecimalField()
     specification = models.CharField(max_length=2000)
     warranty = models.CharField(max_length=15, verbose_name="Гарантия")
     category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True)

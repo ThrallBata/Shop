@@ -23,7 +23,8 @@ from django.conf import settings
 from shop.views import *
 
 urlpatterns = [
-    path('', include('shop.urls')),
+    path(r'^cart/', include('cart.urls', namespace='cart')),
+    path('', include('shop.urls', namespace='shop')),
     path('admin/', admin.site.urls),
 ]
 
