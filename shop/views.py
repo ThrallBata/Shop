@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, get_object_or_404
-from ..cart.forms import CartAddProductForm
+from cart.forms import CartAddProductForm
 # from .forms import SearchForm
 # from haystack.query import SearchQuerySet
 
