@@ -1,20 +1,20 @@
 {% extends "shop/base.html" %}
 
 {% block content %}
+<div class="product_card">
 <h1>{{product.name}}</h1>
 
 {% if product.photo %}
-<p><img class="img-article-left" src="{{product.photo.url}}"></p>
+<img class="img-article-left" src="{{product.photo.url}}"></p>
 {% endif %}
 
-<p class="price">${{ product.price }}</p>
-<form action='{% url "cart:cart_add" product.id %}' method="post">
+<h3>Цена: {{product.price}} р</h3>
+<form action='{% url "cart_add" product.slug %}' method="post">
     {{ cart_product_form }}
     {% csrf_token %}
-    <input type="submit" value="Add to cart">
+    <p><button type="submit">Добавить в корзину</button></p>
 </form>
-<h3>Цена: {{product.price}} р</h3>
-
 <h3>Описание:</h3>{{product.specification|linebreaks}}
 <h3>Гарантия: {{product.warranty}}</h3>
+</div>
 {% endblock %}

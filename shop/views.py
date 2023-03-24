@@ -8,9 +8,9 @@ from .models import *
 
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
-        {'title': "Добавить статью", 'url_name': 'add_page'},
         {'title': "Обратная связь", 'url_name': 'contact'},
-        {'title': "Войти", 'url_name': 'login'}]
+        {'title': "Войти", 'url_name': 'login'},
+        {'title': "Корзина", 'url_name': 'cart_detail'}]
 
 
 def index(request):
@@ -50,10 +50,6 @@ def about(request):
 #                    'cd': cd,
 #                    'results': results,
 #                    'total_results': total_results})
-
-
-def addpage(request):
-    return HttpResponse("Обратная связь")
 
 
 def contact(request):
