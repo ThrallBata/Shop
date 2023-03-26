@@ -8,12 +8,12 @@
     <table class="cart">
         <thead>
         <tr>
-            <th>Image</th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Remove</th>
-            <th>Unit price</th>
-            <th>Price</th>
+            <th>Картинка</th>
+            <th>Продукт</th>
+            <th>Количество</th>
+            <th>Удалить</th>
+            <th>Цена за 1 шт</th>
+            <th>Цена</th>
         </tr>
         </thead>
         <tbody>
@@ -32,21 +32,21 @@
                     </td>
                     <td>{{ product.name }}</td>
                     <td>{{ item.quantity }}</td>
-                    <td><a href='{% url "cart_remove" product.id%}'>Remove</a></td>
-                    <td class="num">${{ item.price }}</td>
-                    <td class="num">${{ item.total_price }}</td>
+                    <td><a href='{% url "cart_remove" product.slug%}'>Удалить</a></td>
+                    <td class="num">{{ item.price }} Р</td>
+                    <td class="num">{{ item.total_price }} Р</td>
                 </tr>
             {% endwith %}
         {% endfor %}
         <tr class="total">
-            <td>Total</td>
+            <td>Итого</td>
             <td colspan="4"></td>
-            <td class="num">${{ cart.get_total_price }}</td>
+            <td class="num">{{ cart.get_total_price }} Р</td>
         </tr>
         </tbody>
     </table>
     <p class="text-right">
-        <a href='{% url "home" %}' class="button light">Continue shopping</a>
+        <a href='{% url "home" %}' class="button light">Продолжить покупки</a>
         <a href="#" class="button">Checkout</a>
     </p>
 {% endblock %}

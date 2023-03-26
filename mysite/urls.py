@@ -22,7 +22,7 @@ from django.conf import settings
 from shop.views import *
 
 urlpatterns = [
-    path('cart/', include('cart.urls')),
+    path('', include('cart.urls')),
     path('', include('shop.urls')),
     path('admin/', admin.site.urls),
 ]
