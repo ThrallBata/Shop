@@ -24,6 +24,7 @@ from shop.views import *
 urlpatterns = [
     path('', include('cart.urls')),
     path('', include('shop.urls')),
+    path('orders/', include('orders.urls')),
     path('admin/', admin.site.urls),
 ]
 
