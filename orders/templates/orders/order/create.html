@@ -5,20 +5,25 @@
 {% block content %}
     <h1>Checkout</h1>
     <div class="order-info">
-        <h3>Your order</h3>
+        <h3>Ваш заказ</h3>
         <ul>
             {% for item in cart %}
                 <li>
-                    {{ item.quantity }}x {{ item.product.name }}
-                    <span>${{ item.total_price }}</span>
+                    {{ item.quantity }} x {{ item.product.name }}
+                    <span>{{ item.total_price }} Р</span>
                 </li>
             {% endfor %}
         </ul>
-        <p>Total: ${{ cart.get_total_price }}</p>
+        <p>Итого: {{ cart.get_total_price }} Р</p>
     </div>
     <form action="." method="post" class="order-form">
-        {{ form.as_p }}
-        <p><input type="submit" value="Place order"></p>
+        {{ form.first_name }}
+        {{ form.last_name }}
+        {{ form.email }}
+        {{ form.address }}
+        {{ form.postal_code }}
+        {{ form.city }}
+        <button class="form-button" type="submit">Заказать</button>
         {% csrf_token %}
     </form>
 {% endblock %}

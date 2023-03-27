@@ -407,3 +407,29 @@ ul.lang-list li a:hover {color: #fdc073;}
     font-size: 1.1rem;
     font-weight: 700;
 }
+.order-form {
+    max-width: 344px;
+}
+.order-input {
+  padding: 22px 18px;
+    width: 344px;
+    height: 65px;
+    background: #FFFFFF;
+    border: 2px solid #5D5D5F;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #000000;
+    outline: none;
+    margin-bottom: 15px;
+}
+
+.order-info {
+	margin: 0;
+	padding: 0px 0 0 0px;
+	list-style: none;
+	font-family: Sans-serif, Arial, Tahoma;
+	font-size: 20px;
+}
+.order-info li {
+	margin: 0 0 40px 0;
+}
