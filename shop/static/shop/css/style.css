@@ -72,7 +72,9 @@ ul.list-articles li {
 	vertical-align: top;
 	Border-spacing: 5%;
 }
-.table-page tr {height: 100%;}
+.table-page tr {height: 100%;
+    margin-left: auto;
+    margin-right: auto}
 
 .clear {clear: both;}
 

@@ -20,7 +20,16 @@
 	{% if not forloop.last %}
 			<li><a href="{% url m.url_name %}">{{m.title}}</a></li>
 	{% else %}
-			<li class="last"><a href="{% url m.url_name %}">{{m.title}}</a></li>
+    	{% with total_items=cart|length %}
+        	{% if cart|length > 0 %}
+            	<li class="last"> <a href="{% url 'cart_detail' %}">
+                	{{m.title}}: {{ total_items }} товар{{ total_items|pluralize:'а,ов' }} на
+                	{{ cart.get_total_price }} Р
+            	</a></li>
+        	{% else %}
+            	<li class="last"><a href="{% url m.url_name %}">{{m.title}}</a></li>
+        	{% endif %}
+    	{% endwith %}
 	{% endif %}
 {% endfor %}
 			</ul>
