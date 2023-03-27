@@ -5,6 +5,12 @@ from .cart import Cart
 from .forms import CartAddProductForm
 
 
+menu = [{'title': "О сайте", 'url_name': 'about'},
+        {'title': "Обратная связь", 'url_name': 'contact'},
+        {'title': "Войти", 'url_name': 'login'},
+        {'title': "Корзина", 'url_name': 'cart_detail'}]
+
+
 @require_POST
 def cart_add(request, product_slug):
     cart = Cart(request)
@@ -27,5 +33,7 @@ def cart_remove(request, product_slug):
 
 def cart_detail(request):
     cart = Cart(request)
-    return render(request, 'cart/detail.html', {'cart': cart})
+    context = {'cart': cart,
+               'menu': menu}
+    return render(request, 'cart/detail.html', context)
 
