@@ -3,6 +3,8 @@ from .models import OrderItem
 from .forms import OrderCreateForm
 from cart.cart import Cart
 
+from .tasks import order_created
+
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Обратная связь", 'url_name': 'contact'},
@@ -21,8 +23,11 @@ def order_create(request):
                                          product=item['product'],
                                          price=item['price'],
                                          quantity=item['quantity'])
+
             # очистка корзины
             cart.clear()
+            # запуск асинхронной задачи
+            order_created.delay(order.id)
             return render(request, 'orders/order/created.html',
                           {'order': order, 'menu': menu})
     else:
