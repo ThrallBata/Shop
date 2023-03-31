@@ -12,6 +12,7 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('contact/', contact, name='contact'),
     path('login/', login, name='login'),
+    path('search/', post_search, name='search'),
     path('product/<slug:product_slug>/', show_product, name='product'),
     path('category/<int:category_id>/', show_category, name='category'),
 ]

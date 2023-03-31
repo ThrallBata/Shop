@@ -11,7 +11,7 @@
 	<p class="first">Категория: {{p.category}}</p>
 </div>
 {% if p.photo %}
-	<p><img class="img-article-left thumb" src="{{p.photo.url}}"></p>
+	<a href="{{ p.get_absolute_url }}"><p><img class="img-article-left thumb" src="{{p.photo.url}}"></p></a>
 {% endif %}
 
 				<h2>{{p.title}}</h2>

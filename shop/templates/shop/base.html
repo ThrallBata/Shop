@@ -30,9 +30,16 @@
             	<li class="last"><a href="{% url m.url_name %}">{{m.title}}</a></li>
         	{% endif %}
     	{% endwith %}
+				{% if form_search %}
+				<form action="{% url 'search' %}" method="get">
+        			{{ form_search.query }}
+        			<button type="submit">Search</button>
+    			</form>
+				{% endif %}
 	{% endif %}
 {% endfor %}
 			</ul>
+
 			<div class="clear"></div>
 		</div>
 {% endblock mainmenu %}

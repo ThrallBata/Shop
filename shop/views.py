@@ -1,8 +1,8 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, get_object_or_404
 from cart.forms import CartAddProductForm
-# from .forms import SearchForm
-# from haystack.query import SearchQuerySet
+from .forms import SearchForm
+
 
 from .models import *
 
@@ -15,12 +15,13 @@ menu = [{'title': "О сайте", 'url_name': 'about'},
 
 def index(request):
     products = Product.objects.all()
-
+    form_search = SearchForm()
     context = {
         'products': products,
         'menu': menu,
         'title': 'Главная страница',
         'cat_selected': 0,
+        'form_search': form_search
     }
 
     return render(request,
@@ -35,21 +36,15 @@ def about(request):
                    'title': 'О сайте'})
 
 
-# def post_search(request):
-#     form = SearchForm()
-#     if 'query' in request.GET:
-#         form = SearchForm(request.GET)
-#         if form.is_valid():
-#             cd = form.cleaned_data
-#             results = SearchQuerySet().models(Product).filter(content=cd['query']).load_all()
-#             # count total results
-#             total_results = results.count()
-#     return render(request,
-#                   'shop/search.html',
-#                   {'form': form,
-#                    'cd': cd,
-#                    'results': results,
-#                    'total_results': total_results})
+def post_search(request):
+    if request.method == 'GET':
+        form_search = SearchForm(request.GET)
+
+        if form_search.is_valid():
+            query = form_search.cleaned_data.get("query")
+            products = Product.objects.filter(name__icontains=query)
+            return render(request, 'shop/index.html', {'menu': menu,  'products': products,
+                                                       'form_search': form_search})
 
 
 def contact(request):
@@ -70,14 +65,15 @@ def pageNotFound(request, exception):
 def show_product(request, product_slug):
     product = get_object_or_404(Product, slug=product_slug)
     cart_product_form = CartAddProductForm()
+    form_search = SearchForm()
     context = {
         'product': product,
         'menu': menu,
         'title': product.name,
         'cat_selected': product.category_id,
         'cart_product_form': cart_product_form,
+        'form_search': form_search,
     }
-
     return render(request,
                   'shop/product.html',
                   context=context)
@@ -85,7 +81,7 @@ def show_product(request, product_slug):
 
 def show_category(request, category_id):
     products = Product.objects.filter(category_id=category_id)
-
+    form_search = SearchForm()
     if len(products) == 0:
         raise Http404()
 
@@ -94,6 +90,7 @@ def show_category(request, category_id):
         'menu': menu,
         'title': 'Отображение по рубрикам',
         'cat_selected': category_id,
+        'form_search': form_search,
     }
 
     return render(request,
