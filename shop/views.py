@@ -1,16 +1,19 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth import authenticate, login
-from cart.forms import CartAddProductForm
-from .forms import SearchForm, LoginForm
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
+from cart.forms import CartAddProductForm
+from .forms import SearchForm, LoginForm, RegisterUserForm
 
 from .models import *
+from .utils import *
 
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Обратная связь", 'url_name': 'contact'},
-        {'title': "Войти", 'url_name': 'login'},
         {'title': "Корзина", 'url_name': 'cart_detail'}]
 
 
@@ -55,7 +58,7 @@ def contact(request):
                    'title': "Обратная связь"})
 
 
-def login(request):
+def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -64,7 +67,7 @@ def login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse('Authenticated successfully')
+                    return redirect('home')
                 else:
                     return HttpResponse('Disabled account')
             else:
@@ -73,6 +76,27 @@ def login(request):
     else:
         form = LoginForm()
     return render(request, 'shop/login.html', {'form': form})
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('home')
+
+
+class RegisterUser(DataMixin, CreateView):
+    form_class = RegisterUserForm
+    template_name = 'shop/register.html'
+    success_url = reverse_lazy('login')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Регистрация")
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('home')
 
 
 def pageNotFound(request, exception):
