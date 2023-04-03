@@ -8,7 +8,7 @@ from .views import *
 
 
 urlpatterns = [
-    path('', index, name='home'),
+    path('', ShopHome.as_view(), name='home'),
     path('about/', about, name='about'),
     path('contact/', contact, name='contact'),
     path('login/', LoginUser.as_view(), name='login'),
@@ -16,7 +16,7 @@ urlpatterns = [
     path('register/', RegisterUser.as_view(), name='register'),
     path('search/', post_search, name='search'),
     path('product/<slug:product_slug>/', show_product, name='product'),
-    path('category/<int:category_id>/', show_category, name='category'),
+    path('category/<slug:cat_slug>/', ShopCategory.as_view(), name='category'),
 ]
 
 

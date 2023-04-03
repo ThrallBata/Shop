@@ -14,7 +14,7 @@
 	<a href="{{ p.get_absolute_url }}"><p><img class="img-article-left thumb" src="{{p.photo.url}}"></p></a>
 {% endif %}
 
-				<h2>{{p.title}}</h2>
+				<h2>{{p.name}}</h2>
 	{% autoescape on %}
 	{{p.specification|linebreaks|truncatewords:50}}
 	{% endautoescape %}

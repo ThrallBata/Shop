@@ -17,20 +17,32 @@ menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Корзина", 'url_name': 'cart_detail'}]
 
 
-def index(request):
-    products = Product.objects.all()
-    form_search = SearchForm()
-    context = {
-        'products': products,
-        'menu': menu,
-        'title': 'Главная страница',
-        'cat_selected': 0,
-        'form_search': form_search
-    }
+class ShopHome(ListView):
+    model = Product
+    template_name = 'shop/index.html'
+    context_object_name = 'products'
 
-    return render(request,
-                  'shop/index.html',
-                  context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['form_search'] = SearchForm()
+        context['cat_selected'] = 0
+        return context
+
+# def index(request):
+#     products = Product.objects.all()
+#     form_search = SearchForm()
+#     context = {
+#         'products': products,
+#         'menu': menu,
+#         'title': 'Главная страница',
+#         'cat_selected': 0,
+#         'form_search': form_search
+#     }
+#
+#     return render(request,
+#                   'shop/index.html',
+#                   context=context)
 
 
 def about(request):
@@ -113,20 +125,35 @@ def show_product(request, product_slug):
                   context=context)
 
 
-def show_category(request, category_id):
-    products = Product.objects.filter(category_id=category_id)
-    form_search = SearchForm()
-    if len(products) == 0:
-        raise Http404()
+class ShopCategory(ListView):
+    model = Product
+    template_name = 'shop/index.html'
+    context_object_name = 'products'
 
-    context = {
-        'products': products,
-        'menu': menu,
-        'title': 'Отображение по рубрикам',
-        'cat_selected': category_id,
-        'form_search': form_search,
-    }
+    def get_queryset(self):
+        return Product.objects.filter(category__slug=self.kwargs['cat_slug'])
 
-    return render(request,
-                  'shop/index.html',
-                  context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['form_search'] = SearchForm()
+        context['cat_selected'] = context['products'][0].category.id
+        return context
+
+# def show_category(request, category_id):
+#     products = Product.objects.filter(category_id=category_id)
+#     form_search = SearchForm()
+#     if len(products) == 0:
+#         raise Http404()
+#
+#     context = {
+#         'products': products,
+#         'menu': menu,
+#         'title': 'Отображение по рубрикам',
+#         'cat_selected': category_id,
+#         'form_search': form_search,
+#     }
+#
+#     return render(request,
+#                   'shop/index.html',
+#                   context=context)
