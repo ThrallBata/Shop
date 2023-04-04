@@ -140,20 +140,16 @@ class ShopCategory(ListView):
         context['cat_selected'] = context['products'][0].category.id
         return context
 
-# def show_category(request, category_id):
-#     products = Product.objects.filter(category_id=category_id)
-#     form_search = SearchForm()
-#     if len(products) == 0:
-#         raise Http404()
-#
-#     context = {
-#         'products': products,
-#         'menu': menu,
-#         'title': 'Отображение по рубрикам',
-#         'cat_selected': category_id,
-#         'form_search': form_search,
-#     }
-#
-#     return render(request,
-#                   'shop/index.html',
-#                   context=context)
+
+def profile(request):
+    form_search = SearchForm()
+    context = {
+        'menu': menu,
+        'form_search': form_search,
+    }
+    if request.user.is_authenticated:
+        return render(request,
+                      'shop/profile.html',
+                      context=context)
+    else:
+        return HttpResponseNotFound('<h1>Страница не найдена</h1>')
