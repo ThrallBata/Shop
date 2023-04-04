@@ -7,8 +7,8 @@ from .forms import CartAddProductForm
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Обратная связь", 'url_name': 'contact'},
-        {'title': "Войти", 'url_name': 'login'},
         {'title': "Корзина", 'url_name': 'cart_detail'}]
+
 
 
 @require_POST
@@ -36,4 +36,3 @@ def cart_detail(request):
     context = {'cart': cart,
                'menu': menu}
     return render(request, 'cart/detail.html', context)
-

@@ -6,28 +6,26 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
 from cart.forms import CartAddProductForm
-from .forms import SearchForm, RegisterUserForm, LoginUserForm
+from .forms import SearchForm
 
 from .models import *
 from .utils import *
 
 
-menu = [{'title': "О сайте", 'url_name': 'about'},
-        {'title': "Обратная связь", 'url_name': 'contact'},
-        {'title': "Корзина", 'url_name': 'cart_detail'}]
+# menu = [{'title': "О сайте", 'url_name': 'about'},
+#         {'title': "Обратная связь", 'url_name': 'contact'},
+#         {'title': "Корзина", 'url_name': 'cart_detail'}]
 
 
-class ShopHome(ListView):
+class ShopHome(DataMixin, ListView):
     model = Product
     template_name = 'shop/index.html'
     context_object_name = 'products'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['menu'] = menu
-        context['form_search'] = SearchForm()
-        context['cat_selected'] = 0
-        return context
+        c_def = self.get_user_context(title="Главная страница")
+        return dict(list(context.items()) + list(c_def.items()))
 
 # def index(request):
 #     products = Product.objects.all()
@@ -46,9 +44,10 @@ class ShopHome(ListView):
 
 
 def about(request):
-    return render(request,
-                  'shop/about.html',
+    form_search = SearchForm()
+    return render(request, 'shop/about.html',
                   {'menu': menu,
+                   'form_search': form_search,
                    'title': 'О сайте'})
 
 
@@ -64,9 +63,11 @@ def post_search(request):
 
 
 def contact(request):
+    form_search = SearchForm()
     return render(request,
                   'shop/contact.html',
                   {'menu': menu,
+                   'form_search': form_search,
                    'title': "Обратная связь"})
 
 
