@@ -10,7 +10,6 @@ menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Корзина", 'url_name': 'cart_detail'}]
 
 
-
 @require_POST
 def cart_add(request, product_slug):
     cart = Cart(request)

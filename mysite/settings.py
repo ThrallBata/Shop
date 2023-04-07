@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'shop.apps.ShopConfig',
     'orders.apps.OrdersConfig',
+    'wishlist.apps.WishlistConfig',
 ]
 
 MIDDLEWARE = [
@@ -140,5 +141,6 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CART_SESSION_ID = 'cart'
+WISHLIST_SESSION_ID = 'wishlist'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
