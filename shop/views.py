@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
 from cart.forms import CartAddProductForm
-from .forms import SearchForm
+from wishlist.forms import WishlistAddProductForm
 
 from .models import *
 from .utils import *
@@ -25,7 +25,9 @@ class ShopHome(DataMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title="Главная страница")
-        return dict(list(context.items()) + list(c_def.items()))
+        v_def = self.get_user_context(cart_product_form=CartAddProductForm)
+        b_def = self.get_user_context(wishlist_product_form=WishlistAddProductForm)
+        return dict(list(context.items()) + list(c_def.items()) + list(v_def.items()) + list(b_def.items()))
 
 # def index(request):
 #     products = Product.objects.all()

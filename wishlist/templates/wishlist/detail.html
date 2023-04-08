@@ -7,7 +7,9 @@
 {% block content %}
 <ul class="list-articles">
 	{% for item in wishlist %}
+	{% if item %}
             {% with p=item.product %}
+
 			<li><div class="article-panel">
 	<p class="first">Категория: {{p.category}}</p>
 </div>
@@ -20,9 +22,15 @@
 	{{p.specification|linebreaks|truncatewords:50}}
 	{% endautoescape %}
 			<div class="clear"></div>
+
+			<a href='{% url "wishlist_remove" p.slug%}'><button>Удалить</button></a>
 			<p class="link-read-post"><a href="{{ p.get_absolute_url }}">Подробнее</a></p>
 			</li>
+
    {% endwith %}
+	{% else %}
+	<h2>Нет товаров в избранном</h2> <a href='{% url "home"}'>Продолжить покупки</a>
+	{% endif %}
 	{% endfor %}
 </ul>
 {% endblock %}

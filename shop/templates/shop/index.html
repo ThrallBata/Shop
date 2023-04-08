@@ -19,9 +19,16 @@
 	{{p.specification|linebreaks|truncatewords:50}}
 	{% endautoescape %}
 				<form action='{% url "wishlist_add" p.slug %}' method="post">
-        			{% csrf_token %}
+        			{{ wishlist_product_form.update }}
+					{% csrf_token %}
 					<button type="submit">Добавить в избранное</button>
     			</form>
+				<form action='{% url "cart_add" p.slug %}' method="post">
+						{{ cart_product_form.quantity }}
+						{{ cart_product_form.update }}
+   					 	{% csrf_token %}
+    				<button type="submit">Добавить в корзину</button>
+				</form>
 			<div class="clear"></div>
 			<p class="link-read-post"><a href="{{ p.get_absolute_url }}">Подробнее</a></p>
 			</li>

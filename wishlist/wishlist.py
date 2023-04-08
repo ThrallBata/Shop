@@ -11,6 +11,7 @@ class Wishlist(object):
         """
         self.session = request.session
         wishlist = self.session.get(settings.WISHLIST_SESSION_ID)
+        print(wishlist)
         if not wishlist:
             # save an empty wishlist in the session
             wishlist = self.session[settings.WISHLIST_SESSION_ID] = {}
