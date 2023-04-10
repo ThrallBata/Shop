@@ -6,6 +6,7 @@ from .forms import WishlistAddProductForm
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Обратная связь", 'url_name': 'contact'},
+        {'title': "Избранное", 'url_name': 'wishlist_detail'},
         {'title': "Корзина", 'url_name': 'cart_detail'}]
 
 
@@ -16,7 +17,9 @@ def wishlist_add(request, product_slug):
     form = WishlistAddProductForm(request.POST)
     if form.is_valid():
         cd = form.cleaned_data
-        wishlist.add(product=product)
+        print('Huy', cd)
+        wishlist.add(product=product,
+                     update_quantity=cd['update'])
     return redirect('wishlist_detail')
 
 

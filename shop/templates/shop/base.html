@@ -20,11 +20,21 @@
 	{% if not forloop.last %}
 			<li><a href="{% url m.url_name %}">{{m.title}}</a></li>
 	{% else %}
-				{% if request.user.is_authenticated %}
-				<li class="last"> <a href="{% url 'profile' %}">{{user.username}} </a>| <a href="{% url 'logout' %}">Выйти</a></li>
-				{% else %}
-				<li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
-				{% endif %}
+					{% if request.user.is_authenticated %}
+					<li class="last"> <a href="{% url 'profile' %}">{{user.username}} </a>| <a href="{% url 'logout' %}">Выйти</a></li>
+					{% else %}
+					<li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
+					{% endif %}
+				{% with total_items=wishlist|length %}
+        	{% if wishlist|length > 0 %}
+            	<li > Избранное <a href="{% url 'wishlist_detail' %}">
+                	: {{ total_items }} товар{{ total_items|pluralize:'а,ов' }} на
+                	{{ wishlist.get_total_price }} Р
+            	</a></li>
+        	{% else %}
+            	<li ><a href="{% url 'wishlist_detail' %}">Избранное</a></li>
+        	{% endif %}
+    	{% endwith %}
     	{% with total_items=cart|length %}
         	{% if cart|length > 0 %}
             	<li class="last"> <a href="{% url 'cart_detail' %}">

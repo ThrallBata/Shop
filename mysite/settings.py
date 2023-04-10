@@ -39,9 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'cart.apps.CartConfig',
+    'wishlist.apps.WishlistConfig',
     'shop.apps.ShopConfig',
     'orders.apps.OrdersConfig',
-    'wishlist.apps.WishlistConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'cart.context_processors.cart',
+                'wishlist.context_processors.wishlist',
             ],
         },
     },
@@ -140,7 +142,8 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CART_SESSION_ID = 'cart'
 WISHLIST_SESSION_ID = 'wishlist'
+CART_SESSION_ID = 'cart'
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
