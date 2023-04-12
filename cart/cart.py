@@ -1,4 +1,4 @@
-from decimal import Decimal
+
 from django.conf import settings
 from shop.models import Product
 
@@ -28,8 +28,7 @@ class Cart(object):
             self.cart[str(product.id)]['product'] = product
 
         for item in self.cart.values():
-            item['price'] = Decimal(item['price'])
-            item['total_price'] = item['price'] * item['quantity']
+            item['total_price'] = int(item['price'][:-3]) * item['quantity']
             yield item
 
     def __len__(self):
@@ -47,7 +46,9 @@ class Cart(object):
             self.cart[product_id] = {'quantity': 0,
                                      'price': str(product.price)}
         if update_quantity:
-            self.cart[product_id]['quantity'] = 1
+            self.cart[product_id]['quantity'] = quantity
+        else:
+            self.cart[product_id]['quantity'] += quantity
         self.save()
 
     def save(self):
@@ -69,7 +70,7 @@ class Cart(object):
         """
         Подсчет стоимости товаров в корзине.
         """
-        return sum(Decimal(item['price']) * item['quantity'] for item in
+        return sum(int(item['price'][:-3]) * item['quantity'] for item in
                    self.cart.values())
 
     def clear(self):

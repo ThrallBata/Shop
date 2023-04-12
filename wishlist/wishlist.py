@@ -1,4 +1,4 @@
-from decimal import Decimal
+
 from django.conf import settings
 from shop.models import Product
 
@@ -28,8 +28,7 @@ class Wishlist(object):
             self.wishlist[str(product.id)]['product'] = product
 
         for item in self.wishlist.values():
-            item['price'] = Decimal(item['price'])
-            item['total_price'] = item['price'] * item['quantity']
+            item['total_price'] = int(item['price'][:-3]) * item['quantity']
             yield item
 
     def __len__(self):
@@ -46,10 +45,7 @@ class Wishlist(object):
         if product_id not in self.wishlist:
             self.wishlist[product_id] = {'quantity': 0,
                                          'price': str(product.price)}
-        if update_quantity:
-            self.wishlist[product_id]['quantity'] = quantity
-        else:
-            self.wishlist[product_id]['quantity'] += quantity
+        self.wishlist[product_id]['quantity'] = quantity
         self.save()
 
     def save(self):
@@ -71,7 +67,7 @@ class Wishlist(object):
         """
         Подсчет стоимости товаров в корзине.
         """
-        return sum(Decimal(item['price']) * item['quantity'] for item in
+        return sum(int(item['price'][:-3]) * item['quantity'] for item in
                    self.wishlist.values())
 
     def clear(self):

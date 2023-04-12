@@ -27,8 +27,8 @@
 					{% endif %}
 				{% with total_items=wishlist|length %}
         	{% if wishlist|length > 0 %}
-            	<li > Избранное <a href="{% url 'wishlist_detail' %}">
-                	: {{ total_items }} товар{{ total_items|pluralize:'а,ов' }} на
+            	<li> <a href="{% url 'wishlist_detail' %}">
+                	Избранное: {{ total_items }} товар{{ total_items|pluralize:'а,ов' }} на
                 	{{ wishlist.get_total_price }} Р
             	</a></li>
         	{% else %}
