@@ -31,6 +31,7 @@ def wishlist_remove(request, product_slug):
 
 def wishlist_detail(request):
     wishlist = Wishlist(request)
+    print(wishlist)
     context = {'wishlist': wishlist,
                'menu': menu}
     return render(request, 'wishlist/detail.html', context)

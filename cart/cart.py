@@ -1,3 +1,5 @@
+from decimal import Decimal
+import copy
 
 from django.conf import settings
 from shop.models import Product
@@ -11,7 +13,6 @@ class Cart(object):
         """
         self.session = request.session
         cart = self.session.get(settings.CART_SESSION_ID)
-        print('c', cart)
         if not cart:
             # save an empty cart in the session
             cart = self.session[settings.CART_SESSION_ID] = {}
@@ -24,11 +25,13 @@ class Cart(object):
         product_slug = self.cart.keys()
         # получение объектов product и добавление их в корзину
         products = Product.objects.filter(id__in=product_slug)
+        cart = copy.deepcopy(self.cart)
         for product in products:
-            self.cart[str(product.id)]['product'] = product
+            cart[str(product.id)]['product'] = product
 
-        for item in self.cart.values():
-            item['total_price'] = int(item['price'][:-3]) * item['quantity']
+        for item in cart.values():
+            item['price'] = Decimal(item['price'])
+            item['total_price'] = item['price'] * item['quantity']
             yield item
 
     def __len__(self):
@@ -70,7 +73,7 @@ class Cart(object):
         """
         Подсчет стоимости товаров в корзине.
         """
-        return sum(int(item['price'][:-3]) * item['quantity'] for item in
+        return sum(Decimal(item['price']) * item['quantity'] for item in
                    self.cart.values())
 
     def clear(self):
