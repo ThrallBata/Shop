@@ -156,3 +156,7 @@ def profile(request):
                       context=context)
     else:
         return HttpResponseNotFound('<h1>Страница не найдена</h1>')
+
+
+def compare(request):
+        return HttpResponseNotFound('<h1>Страница не найдена</h1>')

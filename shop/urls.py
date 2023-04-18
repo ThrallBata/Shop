@@ -16,6 +16,7 @@ urlpatterns = [
     path('register/', RegisterUser.as_view(), name='register'),
     path('profile/', profile, name='profile'),
     path('search/', post_search, name='search'),
+    path('compare/', compare, name='compare'),
     path('product/<slug:product_slug>/', show_product, name='product'),
     path('category/<slug:cat_slug>/', ShopCategory.as_view(), name='category'),
 ]

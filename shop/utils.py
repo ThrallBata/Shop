@@ -7,6 +7,7 @@ from .forms import SearchForm, RegisterUserForm, LoginUserForm
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Обратная связь", 'url_name': 'contact'},
+        {'title': "Сравнение", 'url_name': 'compile'},
         {'title': "Корзина", 'url_name': 'cart_detail'}]
 
 

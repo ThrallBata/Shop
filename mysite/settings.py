@@ -86,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'shop',
         'USER': 'postgres',
-        'PASSWORD': '02vfrcbv',
+        'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -147,3 +147,5 @@ CART_SESSION_ID = 'cart'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
