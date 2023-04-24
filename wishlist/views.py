@@ -16,7 +16,6 @@ def wishlist_add(request, product_slug):
     form = WishlistAddProductForm(request.POST)
     if form.is_valid():
         cd = form.cleaned_data
-        print('Huy', cd)
         wishlist.add(product=product,
                      update_quantity=cd['update'])
     return redirect('wishlist_detail')
@@ -31,7 +30,6 @@ def wishlist_remove(request, product_slug):
 
 def wishlist_detail(request):
     wishlist = Wishlist(request)
-    print(wishlist)
     context = {'wishlist': wishlist,
                'menu': menu}
     return render(request, 'wishlist/detail.html', context)

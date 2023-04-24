@@ -1,0 +1,33 @@
+{% extends "shop/base.html" %}
+
+{% block title %}
+    Сравнение
+{% endblock %}
+
+{% block content %}
+{% if compare %}
+	{% for item in compare %}
+ 		{% with p=item.product %}
+<div class="head-compare">
+	{% if p.photo %}
+		<a href="{{ p.get_absolute_url }}"><p><img src="{{p.photo.url}}"></p></a>
+	{% endif %}
+	{{p.name}}
+	{{p.price}}
+	<a href='{% url "cart_add" p.slug %}'><button>В корзину</button></a>
+	<a href='{% url "wishlist_add" p.slug %}'><button>В избранное</button></a>
+	<a href='{% url "compare_remove" p.slug%}'><button>Удалить</button></a>
+</div>
+
+
+	{% if p.spec_gadget %}
+{% endif %}
+
+   {% endwith %}
+	{% endfor %}
+
+{% else %}
+	<h2>Нет товаров для сравнения</h2> <a href='{% url "home" %}'>Продолжить покупки</a>
+	{% endif %}
+
+{% endblock %}

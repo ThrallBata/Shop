@@ -6,8 +6,8 @@
 
 {% block content %}
 <ul class="list-articles">
+	{% if wishlist %}
 	{% for item in wishlist %}
-	{% if item %}
             {% with p=item.product %}
 
 			<li><div class="article-panel">
@@ -28,9 +28,9 @@
 			</li>
 
    {% endwith %}
-	{% else %}
-	<h2>Нет товаров в избранном</h2> <a href='{% url "home"}'>Продолжить покупки</a>
-	{% endif %}
 	{% endfor %}
+	{% else %}
+	<h2>Нет товаров в избранном</h2> <a href='{% url "home" %}'>Продолжить покупки</a>
+	{% endif %}
 </ul>
 {% endblock %}

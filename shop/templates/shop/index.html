@@ -23,6 +23,11 @@
 					{% csrf_token %}
 					<button type="submit">Добавить в избранное</button>
     			</form>
+				<form action='{% url "compare_add" p.slug %}' method="post">
+        			{{ compare_product_form.update }}
+					{% csrf_token %}
+					<button type="submit">Сравнить</button>
+    			</form>
 				<form action='{% url "cart_add" p.slug %}' method="post">
 						{{ cart_product_form.quantity }}
 						{{ cart_product_form.update }}

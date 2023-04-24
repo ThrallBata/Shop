@@ -3,18 +3,20 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
+from django.views.decorators.http import require_POST
 from django.views.generic import ListView, DetailView, CreateView
 
 from cart.forms import CartAddProductForm
 from wishlist.forms import WishlistAddProductForm
-
+from .compare import Compare
+from .forms import CompareAddProductForm
 from .models import *
 from .utils import *
 
 
-# menu = [{'title': "О сайте", 'url_name': 'about'},
-#         {'title': "Обратная связь", 'url_name': 'contact'},
-#         {'title': "Корзина", 'url_name': 'cart_detail'}]
+menu = [{'title': "О сайте", 'url_name': 'about'},
+        {'title': "Обратная связь", 'url_name': 'contact'},
+        {'title': "Корзина", 'url_name': 'cart_detail'}]
 
 
 class ShopHome(DataMixin, ListView):
@@ -158,5 +160,27 @@ def profile(request):
         return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
 
-def compare(request):
-        return HttpResponseNotFound('<h1>Страница не найдена</h1>')
+@require_POST
+def compare_add(request, product_slug):
+    compare = Compare(request)
+    product = get_object_or_404(Product, slug=product_slug)
+    form = CompareAddProductForm(request.POST)
+    if form.is_valid():
+        cd = form.cleaned_data
+        compare.add(product=product,
+                     update_quantity=cd['update'])
+    return redirect('compare_detail')
+
+
+def compare_remove(request, product_slug):
+    compare = Compare(request)
+    product = get_object_or_404(Product, slug=product_slug)
+    compare.remove(product)
+    return redirect('compare_detail')
+
+
+def compare_detail(request):
+    compare = Compare(request)
+    context = {'compare': compare,
+               'menu': menu}
+    return render(request, 'shop/compare.html', context)

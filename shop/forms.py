@@ -7,6 +7,10 @@ class SearchForm(forms.Form):
     query = forms.CharField()
 
 
+class CompareAddProductForm(forms.Form):
+    update = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)
+
+
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))

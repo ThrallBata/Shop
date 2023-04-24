@@ -86,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'shop',
         'USER': 'postgres',
-        'PASSWORD': '1234',
+        'PASSWORD': '02vfrcbv',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -144,7 +144,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 WISHLIST_SESSION_ID = 'wishlist'
 CART_SESSION_ID = 'cart'
-
+COMPARE_SESSION_ID = 'compare'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
