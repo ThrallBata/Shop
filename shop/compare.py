@@ -29,9 +29,12 @@ class Compare(object):
         for product in products:
             compare[str(product.id)]['product'] = product
 
+
+
         for item in compare.values():
             item['price'] = Decimal(item['price'])
             item['total_price'] = item['price'] * item['quantity']
+
             yield item
 
     def __len__(self):

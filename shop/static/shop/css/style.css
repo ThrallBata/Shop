@@ -433,3 +433,14 @@ ul.lang-list li a:hover {color: #fdc073;}
 .order-info li {
 	margin: 0 0 40px 0;
 }
+
+
+.head-compare-all {
+  display: flex;
+}
+
+.head-compare {
+  display: inline-block;
+  border: 1px solid blue;
+  margin: 2px;
+}

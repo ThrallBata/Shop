@@ -8,20 +8,24 @@
 {% if compare %}
 	{% for item in compare %}
  		{% with p=item.product %}
+<div class="head-compare-all">
 <div class="head-compare">
 	{% if p.photo %}
-		<a href="{{ p.get_absolute_url }}"><p><img src="{{p.photo.url}}"></p></a>
+		<a href="{{ p.get_absolute_url }}"><p><img class="img-article-left" src="{{p.photo.url}}"></p></a>
 	{% endif %}
-	{{p.name}}
-	{{p.price}}
+	<p>{{p.name}}</p>
+	<p>{{p.price}}</p>
 	<a href='{% url "cart_add" p.slug %}'><button>В корзину</button></a>
 	<a href='{% url "wishlist_add" p.slug %}'><button>В избранное</button></a>
 	<a href='{% url "compare_remove" p.slug%}'><button>Удалить</button></a>
 </div>
-
-
-	{% if p.spec_gadget %}
-{% endif %}
+<div class="main-spec">
+<p>{{p.spec_gadget.cpu}}</p>
+<p>{{p.spec_gadget.frequency}}</p>
+<p>{{p.spec_gadget.memory}}</p>
+<p>{{p.spec_gadget.size}}</p>
+</div>
+</div>
 
    {% endwith %}
 	{% endfor %}

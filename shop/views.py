@@ -168,7 +168,7 @@ def compare_add(request, product_slug):
     if form.is_valid():
         cd = form.cleaned_data
         compare.add(product=product,
-                     update_quantity=cd['update'])
+                    update_quantity=cd['update'])
     return redirect('compare_detail')
 
 
