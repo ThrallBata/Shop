@@ -447,6 +447,8 @@ div.head-compare-all {
 
 div.head-compare-one {
     width:35%;
+    margin: 5px;
+
 }
 
 div.head-compare {
@@ -459,6 +461,10 @@ div.head-compare {
 .head-inf-block {
     align-self: start;
     width: 100%;
+}
+
+.head-inf-block p {
+    margin: 2px;
 }
 
 .img-block {
@@ -475,10 +481,11 @@ div.head-compare {
 	}
 
 div.main-spec {
-
+  margin: 2px;
   border: 1px solid #3f4137;
 }
 
 .main-spec p {
   border: 1px solid #3f4137;
+  padding: 2px ;
 }

@@ -40,11 +40,6 @@ class Client(models.Model):
     phone_number = models.CharField(max_length=12, verbose_name='Номер телефона')
     email = models.EmailField(verbose_name='Почтовый адрес')
 
-    # class Meta:
-    #     verbose_name = 'Клиенты'
-    #     verbose_name_plural = 'Клиенты'
-    #     ordering = ['car']
-
 
 class Order(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Товар')

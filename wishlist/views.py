@@ -6,6 +6,7 @@ from .forms import WishlistAddProductForm
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Обратная связь", 'url_name': 'contact'},
+    {'title': "Сравнение", 'url_name': 'compare_detail'},
         {'title': "Корзина", 'url_name': 'cart_detail'}]
 
 

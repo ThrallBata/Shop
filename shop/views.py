@@ -16,6 +16,7 @@ from .utils import *
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Обратная связь", 'url_name': 'contact'},
+        {'title': "Сравнение", 'url_name': 'compare_detail'},
         {'title': "Корзина", 'url_name': 'cart_detail'}]
 
 
@@ -30,21 +31,6 @@ class ShopHome(DataMixin, ListView):
         v_def = self.get_user_context(cart_product_form=CartAddProductForm)
         b_def = self.get_user_context(wishlist_product_form=WishlistAddProductForm)
         return dict(list(context.items()) + list(c_def.items()) + list(v_def.items()) + list(b_def.items()))
-
-# def index(request):
-#     products = Product.objects.all()
-#     form_search = SearchForm()
-#     context = {
-#         'products': products,
-#         'menu': menu,
-#         'title': 'Главная страница',
-#         'cat_selected': 0,
-#         'form_search': form_search
-#     }
-#
-#     return render(request,
-#                   'shop/index.html',
-#                   context=context)
 
 
 def about(request):

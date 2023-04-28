@@ -9,6 +9,7 @@ from .tasks import order_created
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Обратная связь", 'url_name': 'contact'},
         {'title': "Войти", 'url_name': 'login'},
+        {'title': "Сравнение", 'url_name': 'compare_detail'},
         {'title': "Корзина", 'url_name': 'cart_detail'}]
 
 
