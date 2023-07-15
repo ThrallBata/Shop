@@ -15,6 +15,7 @@ Pillow==9.4.0
 prometheus-client==0.16.0
 prompt-toolkit==3.0.38
 psycopg2==2.9.5
+python-dotenv==1.0.0
 pytz==2023.2
 six==1.16.0
 sqlparse==0.4.3
